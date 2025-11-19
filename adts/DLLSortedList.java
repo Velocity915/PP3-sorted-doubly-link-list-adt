@@ -9,22 +9,77 @@ public class DLLSortedList<E> implements ListInterface<E>
     private DLLNode<E> head = null;
     private DLLNode<E> tail = null;
 
+    private boolean sequentialSearch = true;
     private int itemAmount = 0;
+
+    private void switchSearch()
+    {
+        sequentialSearch = !sequentialSearch;
+    }
 
     private DLLNode<E> find(E element)
     {
-        DLLNode<E> temp = head;
-	    while (temp != null) 
+	    if(sequentialSearch)
         {
-	        if (element.equals(temp.getData())) 
+            DLLNode<E> temp = head;
+            while (temp != null) 
             {
-	        	return temp;
+	            if (element.equals(temp.getData())) 
+                {
+	        	    return temp;
+	            }
+	            else 
+                {
+                    temp = temp.getNext();
+	            }
 	        }
-	        else 
+        }
+        else
+        {
+            DLLNode<E> mid = head;
+            DLLNode<E> low = head;
+            DLLNode<E> high = tail;
+            int lowIndex = 0;
+            int highIndex = itemAmount-1;
+            int midIndex = 0;
+            for(int i = 1; i <= lowIndex + (highIndex - lowIndex)/2; i++)
             {
-                temp = temp.getNext();
-	        }
-	    }
+                mid = mid.getNext();
+                midIndex = i;
+            }
+
+
+            while(lowIndex <= highIndex)
+            {
+                
+                if(element.equals(mid.getData()))
+                {
+                    return mid;
+                }
+                else if(((Comparable)element).compareTo(mid.getData()) > 0)
+                {
+                    low = mid.getNext();
+                    lowIndex = midIndex+1;
+                    for(int i = midIndex; i <= lowIndex + (highIndex - lowIndex)/2; i++)
+                    {
+                        mid = mid.getNext();
+                        midIndex = i;
+                    }
+                }
+                else
+                {
+                    high = mid.getPrev();
+                    highIndex = midIndex-1;
+                    for(int i = midIndex; i >= (highIndex + lowIndex)/2; i--)
+                    {
+                        low = low.getNext();
+                        midIndex = i;
+                    }
+                }
+                
+            }
+
+        }
         return null;
     }
     
@@ -124,7 +179,7 @@ public class DLLSortedList<E> implements ListInterface<E>
 
 	@Override
 	public boolean contains(E element) {
-		currentLocation = front; 
+		DLLNode<E> currentLocation = head; 
 		while(currentLocation.getData() !=null) {
 			if(currentLocation.getData() == element)
 				return true;
@@ -134,12 +189,18 @@ public class DLLSortedList<E> implements ListInterface<E>
 			return false;
 	}
 
+    @Override
+    public E get(E element)
+    {
+        return find(element).getData();
+    }
 
     @Override
-public E get(int index) {
-		if(index == 0) return front.getData();
+    public E get(int index) {
+        DLLNode<E> currentLocation;
+		if(index == 0) return head.getData();
 		else {
-			currentLocation = front;
+			currentLocation = head;
 		
 		for(int i = 0; i < index; i++) {
 			currentLocation = currentLocation.getNext();
