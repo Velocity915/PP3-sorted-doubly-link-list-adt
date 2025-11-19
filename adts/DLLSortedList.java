@@ -122,28 +122,42 @@ public class DLLSortedList<E> implements ListInterface<E>
         return itemAmount == 0;
     }
 
-    @Override
-    public boolean contains(E element)
-    {
-        return false;
-    }
+	@Override
+	public boolean contains(E element) {
+		currentLocation = front; 
+		while(currentLocation.getData() !=null) {
+			if(currentLocation.getData() == element)
+				return true;
+			else 
+				currentLocation = currentLocation.getNext();	
+		}
+			return false;
+	}
+
 
     @Override
-    public E get(E element)
-    {
-        return null;
-    }
-
-    @Override
-    public E get(int index)
-    {
-        return null;
-    }
-
+public E get(int index) {
+		if(index == 0) return front.getData();
+		else {
+			currentLocation = front;
+		
+		for(int i = 0; i < index; i++) {
+			currentLocation = currentLocation.getNext();
+			}
+		}
+		return currentLocation.getData();
+	}	
     @Override
     public String toString()
     {
-        return null;
-    }
+    	DLLNode <E> currentLocation = head; 
+		StringBuilder listStr = new StringBuilder("----------------\n");
+    	 for(int i = 0; i < itemAmount; i++) {
+    		listStr.append(currentLocation.getData()+ "\n");
+    		currentLocation = currentLocation.getNext();
+    	}
+		return listStr.toString();
+	}
 }
+
 
