@@ -37,8 +37,6 @@ public class DLLSortedList<E> implements ListInterface<E>
         else
         {
             DLLNode<E> mid = head;
-            DLLNode<E> low = head;
-            DLLNode<E> high = tail;
             int lowIndex = 0;
             int highIndex = itemAmount-1;
             int midIndex = 0;
@@ -52,13 +50,8 @@ public class DLLSortedList<E> implements ListInterface<E>
             while(lowIndex <= highIndex)
             {
                 
-                if(element.equals(mid.getData()))
+                if(((Comparable)element).compareTo(mid.getData()) > 0)
                 {
-                    return mid;
-                }
-                else if(((Comparable)element).compareTo(mid.getData()) > 0)
-                {
-                    low = mid.getNext();
                     lowIndex = midIndex+1;
                     for(int i = midIndex; i <= lowIndex + (highIndex - lowIndex)/2; i++)
                     {
@@ -66,15 +59,18 @@ public class DLLSortedList<E> implements ListInterface<E>
                         midIndex = i;
                     }
                 }
-                else
+                else if(((Comparable)element).compareTo(mid.getData()) < 0)
                 {
-                    high = mid.getPrev();
                     highIndex = midIndex-1;
-                    for(int i = midIndex; i >= (highIndex + lowIndex)/2; i--)
+                    for(int i = midIndex; i >= lowIndex + (highIndex - lowIndex)/2; i--)
                     {
-                        low = low.getNext();
+                        mid = mid.getPrev();
                         midIndex = i;
                     }
+                }
+                if(element.equals(mid.getData()))
+                {
+                    return mid;
                 }
                 
             }
