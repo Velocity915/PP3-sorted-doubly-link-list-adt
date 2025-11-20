@@ -230,20 +230,41 @@ public E get(int index) {
 }
 	
 	private class randomIterator implements Iterator<E> {
-		DLLNode<E> current = tail;
+		DLLNode<E> current = head;
 		DLLNode<E> temp;
-		int copysize = size();
+		int[]filter = new int [size()];
+		int zerocounter = 0; 
+		
+		
 		@Override
 		public boolean hasNext() {
-			if(copysize == 0)
+			for(int i = 0; i <= filter.length-1; i++) {
+				if(filter[i] == 0) {
+					return true;}
+				}
 			return false;
-			else
-				return true;
 		}
 
 		@Override
 		public E next() {
-
+			current = head;
+			
+			int random_number = (int) (Math.floor(Math.random() * size()));
+			
+			if(random_number == 0 && filter[0] == 0) {
+					filter[random_number] = 1;
+					return head.getData();}
+			else if (random_number > 0 && random_number < size()-1 && filter[random_number] == 0) {
+				filter[random_number] = 1;
+				for(int i = 0; i < random_number; i++) {
+					current = current.getNext();} }
+				else if (random_number == size() - 1 && filter[random_number] == 0) {
+					filter[random_number] = 1;
+					return tail.getData();}
+				else {next();}
+			
+			return current.getData();
+		
 		}
 		
 	}
@@ -265,6 +286,9 @@ public E get(int index) {
 
 
 }
+
+
+
 
 
 
