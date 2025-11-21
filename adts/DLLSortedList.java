@@ -175,7 +175,6 @@ public E get(int index) {
     	}
 		return listStr.toString();
 	}
-
 @Override
 	public Iterator<E> iterator() {
 		int i = getSwitch();
@@ -231,8 +230,9 @@ public E get(int index) {
 	
 	private class randomIterator implements Iterator<E> {
 		DLLNode<E> current = head;
+		DLLNode<E> temp;
 		int[]filter = new int [size()];
-
+		int zerocounter = 0; 
 		
 		
 		@Override
@@ -246,23 +246,33 @@ public E get(int index) {
 
 		@Override
 		public E next() {
-			current = head;
+			
+			
+			int escape = 0;
+			
+			while(escape == 0) {
 			
 			int random_number = (int) (Math.floor(Math.random() * size()));
-			
+				
 			if(random_number == 0 && filter[0] == 0) {
 					filter[random_number] = 1;
-					return head.getData();}
+					current = head;
+					escape = 1;}
 			else if (random_number > 0 && random_number < size()-1 && filter[random_number] == 0) {
+				current = head;
 				filter[random_number] = 1;
+				escape = 1;
 				for(int i = 0; i < random_number; i++) {
-					current = current.getNext();} }
+					current = current.getNext();}}
 				else if (random_number == size() - 1 && filter[random_number] == 0) {
 					filter[random_number] = 1;
-					return tail.getData();}
-				else {next();}
+					current = tail;
+					escape = 1;}
+			}
 			
 			return current.getData();
+			
+	
 		
 		}
 		
@@ -284,7 +294,9 @@ public E get(int index) {
 
 
 
+	}
 }
+
 
 
 
