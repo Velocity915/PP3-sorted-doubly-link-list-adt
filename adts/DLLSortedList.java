@@ -230,9 +230,8 @@ public E get(int index) {
 	
 	private class randomIterator implements Iterator<E> {
 		DLLNode<E> current = head;
-		DLLNode<E> temp;
 		int[]filter = new int [size()];
-		int zerocounter = 0; 
+
 		
 		
 		@Override
@@ -296,6 +295,7 @@ public E get(int index) {
 
 	}
 }
+
 
 
 
