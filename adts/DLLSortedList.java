@@ -53,7 +53,7 @@ public class DLLSortedList<E> implements ListInterface<E>
                 if(((Comparable)element).compareTo(mid.getData()) > 0)
                 {
                     lowIndex = midIndex+1;
-                    for(int i = midIndex; i <= lowIndex + (highIndex - lowIndex)/2; i++)
+                    for(int i = lowIndex; i <= lowIndex + (highIndex - lowIndex)/2; i++)
                     {
                         mid = mid.getNext();
                         midIndex = i;
@@ -62,7 +62,7 @@ public class DLLSortedList<E> implements ListInterface<E>
                 else if(((Comparable)element).compareTo(mid.getData()) < 0)
                 {
                     highIndex = midIndex-1;
-                    for(int i = midIndex; i >= lowIndex + (highIndex - lowIndex)/2; i--)
+                    for(int i = highIndex; i >= lowIndex + (highIndex - lowIndex)/2; i--)
                     {
                         mid = mid.getPrev();
                         midIndex = i;
@@ -216,6 +216,7 @@ public class DLLSortedList<E> implements ListInterface<E>
 		return listStr.toString();
 	}
 }
+
 
 
 
