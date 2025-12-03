@@ -12,7 +12,7 @@ public class DLLSortedList<E> implements ListInterface<E>
     private boolean sequentialSearch = true;
     private int itemAmount = 0;
 
-    private void switchSearch()
+    public void switchSearch()
     {
         sequentialSearch = !sequentialSearch;
     }
@@ -216,5 +216,6 @@ public class DLLSortedList<E> implements ListInterface<E>
 		return listStr.toString();
 	}
 }
+
 
 
