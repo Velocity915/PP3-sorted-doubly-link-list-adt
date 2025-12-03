@@ -2,15 +2,16 @@ package adts;
 
 import nodes.DLLNode;
 
+import java.util.Iterator;
+
 import interfaces.ListInterface;
 
-
- private String switcher = "forward";
-public class DLLSortedList<E> implements ListInterface<E>
+public class DLLSortedList<E> implements ListInterface<E>, Iterable<E>
 {
     private DLLNode<E> head = null;
     private DLLNode<E> tail = null;
 
+    private String switcher = "forward";
     private boolean sequentialSearch = true;
     private int itemAmount = 0;
 
@@ -217,7 +218,7 @@ public class DLLSortedList<E> implements ListInterface<E>
     	}
 		return listStr.toString();
 	}
-}
+
 @Override
 	public Iterator<E> iterator() {
 		String i = this.switcher;
@@ -276,10 +277,7 @@ public class DLLSortedList<E> implements ListInterface<E>
 	
 	private class randomIterator implements Iterator<E> {
 		DLLNode<E> current = head;
-		DLLNode<E> temp;
 		int[]filter = new int [size()];
-		int zerocounter = 0; 
-		
 		
 		@Override
 		public boolean hasNext() {
@@ -330,11 +328,4 @@ public class DLLSortedList<E> implements ListInterface<E>
 	public void setSwitcher(String switcher) {
 		this.switcher = switcher;
 	}
-
-
-
-	}
-
-
-
-
+}
