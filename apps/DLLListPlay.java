@@ -9,6 +9,7 @@ public class DLLListPlay {
                 list1.add("hi");
                 System.out.println(list1);
                 System.out.println(list1.size());
+                list1.switchSearch("binary");
                 System.out.println(list1.remove("hi"));
                 System.out.println(list1.remove("something"));
                 
@@ -18,6 +19,7 @@ public class DLLListPlay {
                 System.out.println(list1);
                 System.out.println(list1.isEmpty());
                 System.out.println(list1.size());
+                list1.switchSearch("sequential");
                 System.out.println(list1.get("hi"));
                 System.out.println(list1.get("hey"));
                 System.out.println(list1.get(0));
