@@ -12,17 +12,24 @@ public class DLLSortedList<E> implements ListInterface<E>, Iterable<E>
     private DLLNode<E> tail = null;
 
     private String switcher = "forward";
-    private boolean sequentialSearch = true;
+    private boolean searchMode = true; //true == Sequential search || false == Binary search
     private int itemAmount = 0;
 
-    public void switchSearch()
+    public void switchSearch(String mode)
     {
-        sequentialSearch = !sequentialSearch;
+        if(mode.toLowerCase().equals("sequential"))
+        {
+            searchMode = true;
+        }
+        else if(mode.toLowerCase().equals("binary"))
+        {
+            searchMode = false;
+        }
     }
 
     private DLLNode<E> find(E element)
     {
-	    if(sequentialSearch)
+	    if(searchMode)
         {
             DLLNode<E> temp = head;
             while (temp != null) 
